@@ -5,7 +5,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/issues)
 [![GitHub stars](https://img.shields.io/github/stars/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/network)
-[![DockerHub](https://img.shields.io/docker/pulls/onevl/chzzk-noti-bot.svg)](https://hub.docker.com/r/onevl/chzzk-noti-bot)
+[![DockerHub](https://img.shields.io/docker/pulls/onevl/chzzk-noti-bot)](https://hub.docker.com/r/onevl/chzzk-noti-bot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This bot provides notifications based on 치지직 (Chzzk) broadcast categories via Discord webhooks.
@@ -50,7 +50,7 @@ services:
 [![GitHub issues](https://img.shields.io/github/issues/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/issues)
 [![GitHub stars](https://img.shields.io/github/stars/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/network)
-[![DockerHub](https://img.shields.io/docker/pulls/onevl/chzzk-noti-bot.svg)](https://hub.docker.com/r/onevl/chzzk-noti-bot)
+[![DockerHub](https://img.shields.io/docker/pulls/onevl/chzzk-noti-bot)](https://hub.docker.com/r/onevl/chzzk-noti-bot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 이 봇은 지정한 치지직 방송 카테고리에서 방송이 시작되면 해당 방송의 정보를 디스코드 알림으로 알리는 봇입니다.
