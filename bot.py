@@ -1,6 +1,6 @@
 import requests
 import logging
-from discord_webhook import DiscordWebhook
+from discord_webhook import DiscordWebhook, DiscordEmbed
 import time
 from dotenv import load_dotenv
 import os
@@ -12,7 +12,7 @@ from cachetools import TTLCache
 load_dotenv()
 
 # TTL을 설정할 수 있는 캐시 객체 생성
-cache = TTLCache(maxsize=100, ttl=7200)  # 최대 100개의 아이템을 2시간 동안 유지
+cache = TTLCache(maxsize=200, ttl=86400)  # 최대 200개의 아이템을 24시간 동안 유지
 
 API_URL = os.getenv('API_URL')
 DISCORD_WEBHOOK_URL = os.getenv('DISCORD_WEBHOOK_URL')
@@ -41,11 +41,22 @@ def check_api_response():
             for item in data:
                 live_id = item['liveId']
                 if not is_duplicate_live_id(live_id):
-                    message = (f"현재 진행 중인 {item['liveCategoryValue']} 방송이 있습니다!\n제목: {item['liveTitle']}\n"
-                               f"링크: https://chzzk.naver.com/live/{item['channel']['channelId']}")
-                    webhook = DiscordWebhook(url=DISCORD_WEBHOOK_URL, content=message)
+                    # message = (f"현재 진행 중인 {item['liveCategoryValue']} 방송이 있습니다!\n제목: {item['liveTitle']}\n"
+                    #            f"링크: https://chzzk.naver.com/live/{item['channel']['channelId']}")
+                    webhook = DiscordWebhook(url=DISCORD_WEBHOOK_URL)
+                    embed = DiscordEmbed(title=item['liveTitle'], description=f"https://chzzk.naver.com/live/{item['channel']['channelId']}", color="1DFFA3")
+                    embed.set_author(name=item['channel']['channelName'], url=f"https://chzzk.naver.com/{item['channel']['channelId']}", icon_url=item['channel']['channelImageUrl'])
+
+                    embed.set_thumbnail(url=item['liveImageUrl'].replace("{type}", "480"))
+                    # embed.set_image(url=item['liveImageUrl'].replace("{type}","480"))
+                    
+                    embed.add_embed_field(name="", value=f"[방송 바로가기](https://chzzk.naver.com/live/{item['channel']['channelId']})", inline=False)
+                    embed.set_footer(text="1-vL/chzzk-noti-bot", url=f"https://github.com/1-vL/chzzk-noti-bot", icon_url="https://play-lh.googleusercontent.com/wvo3IB5dTJHyjpIHvkdzpgbFnG3LoVsqKdQ7W3IoRm-EVzISMz9tTaIYoRdZm1phL_8=w240-h480-rw")
+                    # add embed object to webhook
+                    webhook.add_embed(embed)
+
                     webhook.execute()
-                    logging.info(f'알림이 전송되었습니다: {message}')
+                    logging.info(f"알림이 전송되었습니다: 현재 진행 중인 {item['liveCategoryValue']} 방송이 있습니다!")
                     add_live_id_to_cache(live_id)
                 else:
                     logging.info(f'중복된 방송입니다. 방송 ID: {live_id}. 알림을 보내지 않습니다.')

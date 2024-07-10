@@ -5,6 +5,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/issues)
 [![GitHub stars](https://img.shields.io/github/stars/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/network)
+[![Docker Hub Version](https://img.shields.io/docker/v/onevl/chzzk-noti-bot?label=docker%20hub%20version)](https://hub.docker.com/r/onevl/chzzk-noti-bot)
 [![DockerHub](https://img.shields.io/docker/pulls/onevl/chzzk-noti-bot)](https://hub.docker.com/r/onevl/chzzk-noti-bot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -50,6 +51,7 @@ services:
 [![GitHub issues](https://img.shields.io/github/issues/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/issues)
 [![GitHub stars](https://img.shields.io/github/stars/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/network)
+[![Docker Hub Version](https://img.shields.io/docker/v/onevl/chzzk-noti-bot?label=docker%20hub%20version)](https://hub.docker.com/r/onevl/chzzk-noti-bot)
 [![DockerHub](https://img.shields.io/docker/pulls/onevl/chzzk-noti-bot)](https://hub.docker.com/r/onevl/chzzk-noti-bot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -59,10 +61,10 @@ services:
 
 ### 환경변수
 
-| 이름                | 설명                                     | 예시                                                                             |   필수    |
-| ------------------- | ----------------------------------------------- | -------------------------------------------------------------------------------- | --------- |
-| API_URL             | 치지직 방송 카테고리 API URL                     | https://api.chzzk.naver.com/service/v2/categories/GAME/Tabletop_Simulator/lives? | ✅ 필수  |
-| DISCORD_WEBHOOK_URL | 알림을 수신할 디스코드 웹훅 url                   | https://discord.com/api/webhooks/your-webhook-id/your-webhook-token              | ✅ 필수  |
+| 이름                | 설명                                              | 예시                                                                             | 필수    |
+| ------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------- | ------- |
+| API_URL             | 치지직 방송 카테고리 API URL                      | https://api.chzzk.naver.com/service/v2/categories/GAME/Tabletop_Simulator/lives? | ✅ 필수 |
+| DISCORD_WEBHOOK_URL | 알림을 수신할 디스코드 웹훅 url                   | https://discord.com/api/webhooks/your-webhook-id/your-webhook-token              | ✅ 필수 |
 | CUSTOM_USER_AGENT   | (선택) 문제 발생시 사용할 커스텀 유저 에이전트 값 | PostmanRuntime/7.37.3                                                            | ❌ 선택 |
 
 ## 사용법
