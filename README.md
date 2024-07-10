@@ -1,7 +1,7 @@
 # chzzk-noti-bot
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot)
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2F1-vL%2Fchzzk-noti-bot%2Fhit-counter&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://github.com/1-vL/chzzk-noti-bot)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2F1-vL%2Fchzzk-noti-bot%2Fhit-counter&count_bg=%2344cc11&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://github.com/1-vL/chzzk-noti-bot)
 [![GitHub issues](https://img.shields.io/github/issues/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/issues)
 [![GitHub stars](https://img.shields.io/github/stars/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/network)
@@ -12,11 +12,11 @@ This bot provides notifications based on 치지직 (Chzzk) broadcast categories 
 
 ### Environment Variables
 
-| Name                | Description                                     | Example Value                                                                      | Required |
-| ------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------- | -------- |
-| API_URL             | chzzk broadcasting category API URL             | 'https://api.chzzk.naver.com/service/v2/categories/GAME/Tabletop_Simulator/lives?' | ✅ true  |
-| DISCORD_WEBHOOK_URL | Discord webhook URL for receiving notifications | 'https://discord.com/api/webhooks/your-webhook-id/your-webhook-token'              | ✅ true  |
-| CUSTOM_USER_AGENT   | Optional: Custom user agent for troubleshooting | 'PostmanRuntime/7.37.3'                                                            | ❌ false |
+| Name                | Description                                     | Example Value                                                                    | Required |
+| ------------------- | ----------------------------------------------- | -------------------------------------------------------------------------------- | -------- |
+| API_URL             | chzzk broadcasting category API URL             | https://api.chzzk.naver.com/service/v2/categories/GAME/Tabletop_Simulator/lives? | ✅ true  |
+| DISCORD_WEBHOOK_URL | Discord webhook URL for receiving notifications | https://discord.com/api/webhooks/your-webhook-id/your-webhook-token              | ✅ true  |
+| CUSTOM_USER_AGENT   | Optional: Custom user agent for troubleshooting | PostmanRuntime/7.37.3                                                            | ❌ false |
 
 ## Usage
 
@@ -46,7 +46,7 @@ services:
 # 치지직 카테고리 알림 봇 chzzk-noti-bot
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot)
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2F1-vL%2Fchzzk-noti-bot%2Fhit-counter&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://github.com/1-vL/chzzk-noti-bot)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2F1-vL%2Fchzzk-noti-bot%2Fhit-counter&count_bg=%2344cc11&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://github.com/1-vL/chzzk-noti-bot)
 [![GitHub issues](https://img.shields.io/github/issues/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/issues)
 [![GitHub stars](https://img.shields.io/github/stars/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/network)
@@ -59,11 +59,11 @@ services:
 
 ### 환경변수
 
-| Name                | Description                                     | Example Value                                                                      | Required |
-| ------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------- | -------- |
-| API_URL             | 치지직 방송 카테고리 API URL                    | 'https://api.chzzk.naver.com/service/v2/categories/GAME/Tabletop_Simulator/lives?' | ✅ true  |
-| DISCORD_WEBHOOK_URL | Discord webhook URL for receiving notifications | 'https://discord.com/api/webhooks/your-webhook-id/your-webhook-token'              | ✅ true  |
-| CUSTOM_USER_AGENT   | Optional: Custom user agent for troubleshooting | 'PostmanRuntime/7.37.3'                                                            | ❌ false |
+| 이름                | 설명                                     | 예시                                                                             |   필수    |
+| ------------------- | ----------------------------------------------- | -------------------------------------------------------------------------------- | --------- |
+| API_URL             | 치지직 방송 카테고리 API URL                     | https://api.chzzk.naver.com/service/v2/categories/GAME/Tabletop_Simulator/lives? | ✅ 필수  |
+| DISCORD_WEBHOOK_URL | 알림을 수신할 디스코드 웹훅 url                   | https://discord.com/api/webhooks/your-webhook-id/your-webhook-token              | ✅ 필수  |
+| CUSTOM_USER_AGENT   | (선택) 문제 발생시 사용할 커스텀 유저 에이전트 값 | PostmanRuntime/7.37.3                                                            | ❌ 선택 |
 
 ## 사용법
 
