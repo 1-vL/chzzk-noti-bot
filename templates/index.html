@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>치지직 알림 봇 - 메인 페이지</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Font Awesome CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <!-- 파비콘 설정 -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://play-lh.googleusercontent.com/wvo3IB5dTJHyjpIHvkdzpgbFnG3LoVsqKdQ7W3IoRm-EVzISMz9tTaIYoRdZm1phL_8=w240-h480-rw"
+    />
+    <style>
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .list-group-item {
+        margin: 20px;
+      }
+      .list-group-item:hover {
+        color: #ffffff; /* 강조색 설정 */
+        background-color: #218838; /* 강조색 설정 */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="mt-4">치지직 알림 봇 - 메인 페이지</h1>
+      <div class="list-group mt-4">
+        <a
+          href="{{ url_for('global_config') }}"
+          class="list-group-item list-group-item-action"
+          >기본 및 전역 설정</a
+        >
+        <a
+          href="{{ url_for('individual_configs') }}"
+          class="list-group-item list-group-item-action"
+          hover="hover"
+          >개별 알림 설정 추가</a
+        >
+      </div>
+    </div>
+    <!-- 페이지 하단 푸터 -->
+    <footer class="footer">
+      <span>
+        깃허브:
+        <a href="https://github.com/1-vL/chzzk-noti-bot" target="_blank"
+          ><i class="fab fa-github"></i> 1-vL</a
+        >
+        <span> </span>
+        도커허브:
+        <a href="https://hub.docker.com/r/onevl/chzzk-noti-bot" target="_blank"
+          ><i class="fab fa-docker"></i> onevl</a
+        >
+      </span>
+    </footer>
+  </body>
+</html>

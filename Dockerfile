@@ -15,4 +15,6 @@ COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python
 COPY --from=builder /usr/local/bin /usr/local/bin
 COPY . .
 
-CMD ["python", "bot.py"]
+EXPOSE 34224
+
+ENTRYPOINT python app.py

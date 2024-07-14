@@ -1,0 +1,66 @@
+{
+    "default_config": {
+        "discord_webhook_url": "DISCORD WEB HOOK 플레이스 홀더 (DISCORD WEB HOOK URL)",
+        "custom_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+        "do_not_disturb_start": "03:00",
+        "do_not_disturb_end": "08:45",
+        "do_not_disturb_on": "True",
+        "interval_seconds": 60,
+        "mode": "default"
+    },
+    "global_config": {
+        "discord_webhook_url": "DISCORD WEB HOOK 플레이스 홀더 (DISCORD WEB HOOK URL)",
+        "custom_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+        "do_not_disturb_start": "03:00",
+        "do_not_disturb_end": "08:45",
+        "do_not_disturb_on": "True",
+        "interval_seconds": 60,
+        "blacklist": [],
+        "whitelist": [],
+        "exclude_keywords": []
+    },
+    "individual_configs": [
+        {
+            "title": "테탑시",
+            "desc": "예제로 사용 된 게임인 테이블탑 시뮬레이터입니다.\n\n아래 api url과 같은 양식의 api 요청을 통해 관심있는 카테고리 알림을 받으실 수 있습니다.\n\n블랙리스트, 화이트리스트, 제외 키워드 등의 기능은 향후 추가 예정으로, 현재는 작동하지 않습니다.",
+            "api_url": "https://api.chzzk.naver.com/service/v2/categories/GAME/Tabletop_Simulator/lives",
+            "discord_webhook_url": "DISCORD WEB HOOK 플레이스 홀더 (DISCORD WEB HOOK URL)",
+            "custom_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+            "do_not_disturb_start": "03:00",
+            "do_not_disturb_end": "08:45",
+            "do_not_disturb_on": "True",
+            "interval_seconds": 60,
+            "mode": "default",
+            "blacklist": [
+                ""
+            ],
+            "whitelist": [
+                ""
+            ],
+            "exclude_keywords": [
+                ""
+            ]
+        },
+        {
+            "title": "발더게 3",
+            "desc": "",
+            "api_url": "https://api.chzzk.naver.com/service/v2/categories/GAME/Baldurs_Gate3/lives",
+            "discord_webhook_url": "DISCORD WEB HOOK 플레이스 홀더 (DISCORD WEB HOOK URL)",
+            "custom_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+            "do_not_disturb_start": "03:00",
+            "do_not_disturb_end": "08:45",
+            "do_not_disturb_on": "True",
+            "interval_seconds": 60,
+            "mode": "default",
+            "blacklist": [
+                ""
+            ],
+            "whitelist": [
+                ""
+            ],
+            "exclude_keywords": [
+                ""
+            ]
+        }
+    ]
+}

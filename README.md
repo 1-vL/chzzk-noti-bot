@@ -11,22 +11,13 @@
 
 This bot provides notifications based on 치지직 (Chzzk) broadcast categories via Discord webhooks.
 
-### Environment Variables
-
-| Name                | Description                                     | Example Value                                                                    | Required |
-| ------------------- | ----------------------------------------------- | -------------------------------------------------------------------------------- | -------- |
-| API_URL             | chzzk broadcasting category API URL             | https://api.chzzk.naver.com/service/v2/categories/GAME/Tabletop_Simulator/lives? | ✅ true  |
-| DISCORD_WEBHOOK_URL | Discord webhook URL for receiving notifications | https://discord.com/api/webhooks/your-webhook-id/your-webhook-token              | ✅ true  |
-| CUSTOM_USER_AGENT   | Optional: Custom user agent for troubleshooting | PostmanRuntime/7.37.3                                                            | ❌ false |
-
 ## Usage
 
 ### Docker Run
 
 ```bash
 docker run -d --name chzzk-noti-bot \
-  -e API_URL='your_api_url_here' \
-  -e DISCORD_WEBHOOK_URL='your_discord_webhook_url_here' \
+  -p 34224:34224 \
   --restart always onevl/chzzk-noti-bot
 ```
 
@@ -37,10 +28,7 @@ services:
   chzzk-noti-bot:
     image: onevl/chzzk-noti-bot
     container_name: chzzk-noti-bot
-    environment:
-      - API_URL=https://api.chzzk.naver.com/service/v2/categories/GAME/Tabletop_Simulator/lives?
-      - DISCORD_WEBHOOK_URL=디스코드 웹훅 url
-      # - CUSTOM_USER_AGENT=PostmanRuntime/7.37.3 (Optional)
+    ports: -34224:34224
     restart: always
 ```
 
@@ -59,22 +47,13 @@ services:
 
 도커를 통해 설치하여 사용하시면 됩니다.
 
-### 환경변수
-
-| 이름                | 설명                                              | 예시                                                                             | 필수    |
-| ------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------- | ------- |
-| API_URL             | 치지직 방송 카테고리 API URL                      | https://api.chzzk.naver.com/service/v2/categories/GAME/Tabletop_Simulator/lives? | ✅ 필수 |
-| DISCORD_WEBHOOK_URL | 알림을 수신할 디스코드 웹훅 url                   | https://discord.com/api/webhooks/your-webhook-id/your-webhook-token              | ✅ 필수 |
-| CUSTOM_USER_AGENT   | (선택) 문제 발생시 사용할 커스텀 유저 에이전트 값 | PostmanRuntime/7.37.3                                                            | ❌ 선택 |
-
 ## 사용법
 
 ### Docker Run
 
 ```bash
 docker run -d --name chzzk-noti-bot \
-  -e API_URL='원하시는 api_url을 넣어주세요' \
-  -e DISCORD_WEBHOOK_URL='디스코드에서 생성한 웹 훅 url을 넣어주세요' \
+  -p 34224:34224 \
   --restart always onevl/chzzk-noti-bot
 ```
 
@@ -85,9 +64,6 @@ services:
   chzzk-noti-bot:
     image: onevl/chzzk-noti-bot
     container_name: chzzk-noti-bot
-    environment:
-      - API_URL=https://api.chzzk.naver.com/service/v2/categories/GAME/Tabletop_Simulator/lives?
-      - DISCORD_WEBHOOK_URL=디스코드 웹훅 url
-      # - CUSTOM_USER_AGENT=PostmanRuntime/7.37.3 (Optional)
+    ports: -34224:34224
     restart: always
 ```

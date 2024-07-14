@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>치지직 알림 봇 - 전역 설정</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <!-- Bootstrap Datepicker CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
+  <!-- Bootstrap Selectpicker CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0/css/bootstrap-select.min.css" />
+  <!-- Font Awesome CSS -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  <!-- 파비콘 설정 -->
+  <link
+    rel="icon"
+    type="image/x-icon"
+    href="https://play-lh.googleusercontent.com/wvo3IB5dTJHyjpIHvkdzpgbFnG3LoVsqKdQ7W3IoRm-EVzISMz9tTaIYoRdZm1phL_8=w240-h480-rw"
+  />
+</head>
+<body>
+  <!-- 뒤로가기 아이콘 버튼 -->
+  <a href="/" class="back-button"><i class="fas fa-arrow-left"></i> 뒤로가기</a>
+
+  <div class="card mb-4">
+    <div class="card-header">
+
+      <h1 class="mb-0">치지직 알림 봇 - 전역 설정</h1>
+    </div>
+    <div id="collapseGlobalConfig" class="collapse show">
+      <!-- Initially show the global settings form -->
+      <div class="card-body">
+        <form action="{{ url_for('update_global_config') }}" method="post">
+          {% for key, value in global_config.items() %}
+          <div class="form-group">
+            <label for="{{ key }}">
+              {% if key == 'title' %} 제목
+              {% elif key == 'desc' %} 설명
+              {% elif key == 'created_at' %} 작성일
+              {% elif key == 'modified_at' %} 수정일
+              {% elif key == 'api_url' %} API URL
+              {% elif key == 'discord_webhook_url' %} Discord Webhook URL
+                <input type="url" class="form-control" id="discord_webhook_url_input" name="discord_webhook_url" placeholder="{{value}}" value="{{value}}" required />
+              {% elif key == 'custom_user_agent' %} 사용자 에이전트
+              <span>
+                <input type="text" class="form-control" id="custom_user_agent_input" name="custom_user_agent" placeholder="{{value}}" value="{{value}}" />
+              </span>
+              {% elif key == 'do_not_disturb_on' %} 방해 금지 시간 사용 <input type="checkbox" id="do_not_disturb_on" name="do_not_disturb_on" {% if value == "True" %}checked{% endif %}>
+            
+              {% elif key == 'do_not_disturb_start' %} 방해 금지 시작 시간 <input type="time" class="form-control-time" id="do_not_disturb_start" name="do_not_disturb_start" placeholder="{{ value }}" value="{{ value }}" />
+              {% elif key == 'do_not_disturb_end' %} 방해 금지 종료 시간 <input type="time" class="form-control-time" id="do_not_disturb_end" name="do_not_disturb_end" placeholder="{{ value }}" value="{{ value }}" />
+                
+              
+              {% elif key == 'interval_seconds' %} API 콜 간격 (초)
+              <span>
+                <input type="number" class="form-control-time" id="interval_seconds_input" name="interval_seconds" placeholder="{{value}}" value="{{value}}" required />
+              </span>
+              {% elif key == 'mode' %}
+              모드
+              <select class="form-control selectpicker" name="mode" value="{{value}}" required >
+                <option value="default" {% if value == 'default' %} selected {% endif %}>기본</option>
+                <option value="off" {% if value == 'off' %} selected {% endif %}>비활성화</option>
+                <option value="blacklist" {% if value == 'blacklist' %} selected {% endif %}>블랙리스트</option>
+                <option value="advanced" {% if value == 'advanced' %} selected {% endif %}>고급</option>
+              </select>
+              {% elif key == 'blacklist' %}
+              블랙리스트
+                <input class="form-control" id="blacklist_input" placeholder="추가할 항목" />
+                <button type="button" class="btn btn-success ml-2" onclick="addToBlacklist()"><i class="fa fa-plus"></i> 추가</button>
+              <ul id="blacklist_items">
+                {% for item in value %}
+                <li id="blacklist_item_{{ loop.index0 }}">
+                  <div id="blacklist_{{loop.index0}}_avatar_div">
+                    <div id="blacklist_{{loop.index0}}_avatar"></div>
+                    <div id="blacklist_{{loop.index0}}_username"></div>
+                  </div>
+                  <span>{{ item }}</span>
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm ml-2"
+                    onclick="removeFromBlacklist({{ loop.index0 }})"
+                  >
+                    <i class="fas fa-trash-alt"></i> 삭제
+                  </button>
+                </li>
+                {% endfor %}
+              </ul>
+              {% elif key == 'whitelist' %}
+              화이트리스트
+                <input class="form-control" id="whitelist_input" placeholder="추가할 항목" />
+                <button type="button" class="btn btn-success ml-2" onclick="addToWhitelist()"><i class="fa fa-plus"></i> 추가</button>
+              <ul id="whitelist_items">
+                {% for item in value %}
+                <li id="whitelist_item_{{ loop.index0 }}">
+                  <div id="whitelist_{{loop.index0}}_avatar_div">
+                    <div id="whitelist_{{loop.index0}}_avatar"></div>
+                    <div id="whitelist_{{loop.index0}}_username"></div>
+                  </div>
+                  <span>{{ item }}</span>
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm ml-2"
+                    onclick="removeFromWhitelist({{ loop.index0 }})"
+                  >
+                    <i class="fas fa-trash-alt"></i> 삭제
+                  </button>
+                </li>
+                {% endfor %}
+              </ul>
+              {% elif key == 'exclude_keywords' %}
+              제외 키워드
+                <input class="form-control" id="exclude_keywords_input" placeholder="추가할 키워드" />
+                <button type="button" class="btn btn-success ml-2" onclick="addExcludeKeyword()"><i class="fa fa-plus"></i> 추가</button>
+              <ul id="exclude_keywords_items">
+                {% for item in value %}
+                <li id="exclude_keywords_item_{{ loop.index0 }}">
+                  <span>{{ item }}</span>
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm ml-2"
+                    onclick="removeFromExcludeKeywords({{ loop.index0 }})"
+                  >
+                    <i class="fas fa-trash-alt"></i> 삭제
+                  </button>
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </label>
+          </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-primary" onclick="onSubmit(event)">저장</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 페이지 하단 푸터 -->
+    <footer class="footer">
+      <span>
+        깃허브:
+        <a href="https://github.com/1-vL/chzzk-noti-bot" target="_blank"
+          ><i class="fab fa-github"></i> 1-vL</a
+        >
+        <span> </span>
+        도커허브:
+        <a href="https://hub.docker.com/r/onevl/chzzk-noti-bot" target="_blank"
+          ><i class="fab fa-docker"></i> onevl</a
+        >
+      </span>
+    </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Bootstrap Datepicker JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  <!-- Bootstrap Selectpicker JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0/js/bootstrap-select.min.js"></script>
+
+  <script>
+    // 초기 인덱스 설정
+    let blacklistIndex = {{ global_config.blacklist|length }};
+    let whitelistIndex = {{ global_config.whitelist|length }};
+    let excludeKeywordsIndex = {{ global_config.exclude_keywords|length }};
+    $(document).ready(function() {
+      // Your code here
+      console.log("DOM is ready");
+    
+      console.log($('#do_not_disturb_on').prop('checked'));
+      // Example: Manipulating DOM elements
+      // $('#do_not_disturb_on').prop('checked', true); // Set checkbox to checked
+    });
+
+    function decodeJSON(encodedString) {
+      let decodedString = encodedString.replaceAll("&#39;", '"');
+      return JSON.parse(decodedString);
+    }
+
+    // 저장 버튼 클릭시
+    function onSubmit(event) {
+      event.preventDefault();
+      let global_config_str = "{{ global_config }}";
+      let global_config = decodeJSON(global_config_str);
+      // 배열을 초기화합니다.
+      let blacklist_array = [];
+      let whitelist_array = [];
+      let exclude_keywords_array = [];
+      console.log($('#do_not_disturb_on').prop('checked'));
+      global_config.discord_webhook_url = $('#discord_webhook_url_input').val() ?? global_config.discord_webhook_url;
+      global_config.custom_user_agent = $('#custom_user_agent_input').val() ?? global_config.custom_user_agent;
+      global_config.do_not_disturb_on = $('#do_not_disturb_on').prop('checked') ? 'True' : 'False'; // 체크 여부를 문자열로 변환
+      global_config.do_not_disturb_start = $('#do_not_disturb_start').val();
+      global_config.do_not_disturb_end = $('#do_not_disturb_end').val();
+      global_config.interval_seconds = parseInt($('#interval_seconds_input').val());
+
+      // jQuery를 사용하여 <ul> 태그 아래의 <li> 태그 아래의 <span> 태그들을 선택합니다.
+      $('#blacklist_items li span').each(function() {
+        // 각 <span> 태그의 텍스트 값을 배열에 추가합니다.
+          blacklist_array.push($(this).text());
+      });
+      $('#whitelist_items li span').each(function() {
+        // 각 <span> 태그의 텍스트 값을 배열에 추가합니다.
+          whitelist_array.push($(this).text());
+      });
+      $('#exclude_keywords_items li span').each(function() {
+        // 각 <span> 태그의 텍스트 값을 배열에 추가합니다.
+          exclude_keywords_array.push($(this).text());
+      });
+
+      // itemsArray를 global_config에 저장합니다.
+      global_config.blacklist = blacklist_array;
+      global_config.whitelist = whitelist_array;
+      global_config.exclude_keywords = exclude_keywords_array;
+      console.log('global_config', global_config);
+      $.ajax({
+        url: '/update_global_config',  // 저장 엔드포인트 URL
+        type: 'POST',  // POST 요청
+        contentType: 'application/json',  // JSON 데이터 전송
+        data: JSON.stringify(global_config),  // global_config 객체를 JSON 문자열로 변환하여 전송
+        success: function(response) {
+          console.debug('Data saved successfully:', response);
+          // 성공적으로 저장되었을 때 실행할 코드 추가
+          // location.reload();
+        },
+        error: function(xhr, status, error) {
+          console.error('Error saving data:', error);
+          // 저장 중 오류 발생 시 실행할 코드 추가
+          location.reload();
+        }
+      });
+    }
+
+    // 모드 선택 필드 초기화
+    // 블랙리스트 아이템 추가
+    function addToBlacklist() {
+      let inputVal = $('#blacklist_input').val();
+      console.log('blacklistIndex', blacklistIndex);
+      if (inputVal) {
+        $('#blacklist_items').append(`
+        <li id="blacklist_item_${blacklistIndex}">
+          <span>${ inputVal }</span>
+          <button
+            class="btn btn-outline-danger btn-sm ml-2"
+            onclick="removeFromBlacklist(${blacklistIndex})"
+          >
+            <i class="fas fa-trash-alt"></i> 삭제
+          </button>
+        </li>`);
+        blacklistIndex++;
+        $('#blacklist').val('');
+      }
+    }
+
+    // 화이트리스트 아이템 추가
+    function addToWhitelist() {
+      let inputVal = $('#whitelist_input').val();
+      if (inputVal) {
+        $('#whitelist_items').append(`
+        <li id="whitelist_item_${whitelistIndex}">
+          <span>${ inputVal }</span>
+          <button
+            class="btn btn-outline-danger btn-sm ml-2"
+            onclick="removeFromWhitelist(${whitelistIndex})"
+          >
+            <i class="fas fa-trash-alt"></i> 삭제
+          </button>
+        </li>`);
+        whitelistIndex++;
+        $('#whitelist').val('');
+      }
+    }
+
+    // 제외 키워드 추가
+    function addExcludeKeyword() {
+      let inputVal = $('#exclude_keywords_input').val();
+      if (inputVal) {
+        $('#exclude_keywords_items').append(`
+        <li id="exclude_keywords_item_${excludeKeywordsIndex}">
+          <span>${ inputVal }</span>
+          <button
+            class="btn btn-outline-danger btn-sm ml-2"
+            onclick="removeFromExcludeKeywords(${excludeKeywordsIndex})"
+          >
+            <i class="fas fa-trash-alt"></i> 삭제
+          </button>
+        </li>`);
+        excludeKeywordsIndex++;
+        $('#exclude_keywords').val('');
+      }
+    }
+
+    function removeFromBlacklist(idx) {
+      $('#blacklist_item_' + idx).remove();
+    }
+    function removeFromWhitelist(idx) {
+      $('#whitelist_item_' + idx).remove();
+    }
+    function removeFromExcludeKeywords(idx) {
+      $('#exclude_keywords_item_' + idx).remove();
+    }
+
+    // 알림 확인 간격 수정
+    function editIntervalSeconds() {
+      var inputVal = $('#interval_seconds_input').val();
+      if (inputVal) {
+        $('#interval_seconds_input').val('');
+      }
+    }
+
+    // 알림 확인 간격 수정
+    function getProfile(elementPrefix, idx, channelId) {
+      let apiUrlPrefix = 'https://api.chzzk.naver.com/service/v1/channels/';
+      // jQuery를 사용하여 API 호출
+      $.ajax({
+        url: apiUrlPrefix + channelId,
+        method: 'GET',
+        dataType: 'application/json', // 예상되는 응답 형식은 JSON입니다.
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+        },
+        success: function(data) {
+          // API 호출 성공 시 데이터를 받아서 표시
+          $('#' + elementPrefix + idx + '_avatar').html(`<img src="${data.content.channelImageUrl}" alt="Avatar" width="100" height="100">`);
+          $('#' + elementPrefix + idx + '_username').text(data.content.channelName);
+        },
+        error: function() {
+          // API 호출 실패 시 처리
+          $('#' + elementPrefix + idx + '_username').html('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16"><path d="M8.243 1.133c.328-.568 1.429-.568 1.757 0l6.5 11.266c.328.568-.082 1.267-.878 1.267H2.621c-.796 0-1.206-.7-.878-1.267l6.5-11.266zm-.243-.9a1 1 0 0 1 1.486 0l6.5 11.266a1 1 0 0 1-.878 1.5H2.621a1 1 0 0 1-.878-1.5l6.5-11.266a1 1 0 0 1 1.486 0z"/><path d="M8 11a1 1 0 0 1-1-1V7a1 1 0 0 1 2 0v3a1 1 0 0 1-1 1zM8 5a1 1 0 0 1-1-1 1 1 0 0 1 2 0 1 1 0 0 1-1 1z"/></svg>');
+
+        }
+      });
+    }
+  </script>
+</body>
+</html>

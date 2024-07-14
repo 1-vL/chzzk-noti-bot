@@ -2,3 +2,4 @@ requests
 discord-webhook
 python-dotenv
 cachetools
+flask

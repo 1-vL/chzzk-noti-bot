@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>치지직 알림 봇 - 개별 알림 설정</title>
+    <!-- 부트스트랩 CSS 추가 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Font Awesome 아이콘 CSS 추가 -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <!-- 파비콘 설정 -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://play-lh.googleusercontent.com/wvo3IB5dTJHyjpIHvkdzpgbFnG3LoVsqKdQ7W3IoRm-EVzISMz9tTaIYoRdZm1phL_8=w240-h480-rw"
+    />
+  </head>
+  <body>
+
+    <!-- Modal for adding new configuration -->
+    <div
+      class="modal fade"
+      id="addConfigModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="addConfigModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addConfigModalLabel">
+              새로운 설정 추가
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="addConfigForm">
+              <div class="form-group">
+                <label for="new_title">제목</label>
+                <input type="text" class="modal-form-control" id="new_title" value="">
+              </div>
+              <div class="form-group">
+                <label for="new_desc">설명</label>
+                <textarea class="modal-form-control" id="new_desc" rows="2"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="new_api_url">API URL</label>
+                <input type="url" class="modal-form-control" id="new_api_url" value="">
+              </div>
+              <div class="form-group">
+                <label for="new_discord_webhook_url">Discord Webhook URL</label>
+                <input type="url" class="modal-form-control" id="new_discord_webhook_url" value="">
+              </div>
+              <div class="form-group">
+                <label for="new_custom_user_agent">사용자 정의 User Agent</label>
+                <input type="text" class="modal-form-control" id="new_custom_user_agent" value="">
+              </div>
+              <div class="form-group">
+                <label for="new_do_not_disturb_start">방해 금지 시작 시간</label>
+                <input type="time" class="modal-form-control" id="new_do_not_disturb_start" value="03:00">
+              </div>
+              <div class="form-group">
+                <label for="new_do_not_disturb_end">방해 금지 종료 시간</label>
+                <input type="time" class="modal-form-control" id="new_do_not_disturb_end" value="08:45">
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="new_do_not_disturb_on" checked>
+                <label class="form-check-label" for="new_do_not_disturb_on">방해 금지 사용</label>
+              </div>
+              <div class="form-group">
+                <label for="new_interval_seconds">갱신 간격 (초)</label>
+                <input type="number" class="modal-form-control" id="new_interval_seconds" value="60">
+              </div>
+              <div class="form-group">
+                <label for="new_mode">모드</label>
+                <select class="modal-form-control" id="new_mode">
+                  <option value="default" selected>기본</option>
+                  <option value="off" {{ 'selected' if mode == 'off' else '' }}>비활성화</option>
+                  <option value="blacklist" {{ 'selected' if mode == 'blacklist' else '' }}>블랙리스트</option>
+                  <option value="advanced" {{ 'selected' if mode == 'advanced' else '' }}>고급</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="new_blacklist">블랙리스트</label>
+                <input type="text" class="modal-form-control" id="new_blacklist" value="" disabled placeholder="개별 카테고리 목록 기능은 추후 추가할 예정입니다.">
+              </div>
+              <div class="form-group">
+                <label for="new_whitelist">화이트리스트</label>
+                <input type="text" class="modal-form-control" id="new_whitelist" value="" disabled placeholder="개별 카테고리 목록 기능은 추후 추가할 예정입니다.">
+              </div>
+              <div class="form-group">
+                <label for="new_exclude_keywords">제외 키워드</label>
+                <input type="text" class="modal-form-control" id="new_exclude_keywords" value="" disabled placeholder="개별 카테고리 목록 기능은 추후 추가할 예정입니다.">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            <button class="btn btn-primary" onclick="addConfig()">저장</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- 뒤로가기 아이콘 버튼 -->
+    <a href="/" class="back-button"
+      ><i class="fas fa-arrow-left"></i> 뒤로가기</a
+    >
+    <div class="container">
+      <h1>치지직 알림 봇 - 개별 알림 설정</h1>
+
+      <!-- Loop through individual configurations -->
+      {% for idx, indiv_config in individual_configs|enumerate %}
+      <div class="card mb-4">
+        <div class="card-header">
+          <h5 class="modal-title">
+              {{indiv_config.title}}
+            <button
+              class="btn btn-outline-primary btn-sm float-right ml-2"
+              onclick="editConfig({{ idx }})"
+            >
+              <i class="fas fa-edit"></i> 수정
+            </button>
+            <button
+              class="btn btn-outline-danger btn-sm float-right"
+              onclick="confirmDelete({{ idx }})"
+            >
+              <i class="fas fa-trash-alt"></i> 삭제
+            </button>
+          </h5>
+        </div>
+        <div id="cardBody{{ idx }}">
+          <div class="card-body">
+            <div class="card-link-box">
+              <div class="card-link">
+                치지직 링크:
+                <a href="{{indiv_config.api_url}}">{{indiv_config.api_url}}</a>
+              </div>
+              <div class="card-link">
+                디스코드 웹훅:
+                <a href="{{indiv_config.discord_webhook_url}}"
+                  >{{indiv_config.discord_webhook_url}}</a
+                >
+              </div>
+            </div>
+
+            {{indiv_config.desc}}
+            <div class="card-body-footer">
+              <span class="status-{{indiv_config.mode|lower}}"
+                >상태: <strong>{{indiv_config.mode or 'default'}}</strong></span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal for editing configuration -->
+      <div class="modal fade" id="editConfigModal{{ idx }}" tabindex="-1" role="dialog" aria-labelledby="editConfigModalLabel{{ idx }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editConfigModalLabel{{ idx }}">편집</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="editForm{{ idx }}">
+                <div class="form-group">
+                  <label for="title{{ idx }}">제목</label>
+                  <input type="text" class="modal-form-control" id="title{{ idx }}" value="{{ indiv_config.title }}">
+                </div>
+                <div class="form-group">
+                  <label for="desc{{ idx }}">설명</label>
+                  <textarea class="modal-form-control" id="desc{{ idx }}" rows="2">{{ indiv_config.desc }}</textarea>
+                </div>
+                <div class="form-group">
+                  <label for="api_url{{ idx }}">API URL</label>
+                  <input type="url" class="modal-form-control" id="api_url{{ idx }}" value="{{ indiv_config.api_url }}">
+                </div>
+                <div class="form-group">
+                  <label for="discord_webhook_url{{ idx }}">Discord Webhook URL</label>
+                  <input type="url" class="modal-form-control" id="discord_webhook_url{{ idx }}" value="{{ indiv_config.discord_webhook_url }}">
+                </div>
+                <div class="form-group">
+                  <label for="custom_user_agent{{ idx }}">사용자 정의 User Agent</label>
+                  <input type="text" class="modal-form-control" id="custom_user_agent{{ idx }}" value="{{ indiv_config.custom_user_agent }}">
+                </div>
+                <div class="form-group">
+                  <label for="do_not_disturb_start{{ idx }}">방해 금지 시작 시간</label>
+                  <input type="time" class="modal-form-control" id="do_not_disturb_start{{ idx }}" value="{{ indiv_config.do_not_disturb_start }}">
+                </div>
+                <div class="form-group">
+                  <label for="do_not_disturb_end{{ idx }}">방해 금지 종료 시간</label>
+                  <input type="time" class="modal-form-control" id="do_not_disturb_end{{ idx }}" value="{{ indiv_config.do_not_disturb_end }}">
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="do_not_disturb_on{{ idx }}" {{ 'checked' if indiv_config.do_not_disturb_on == "True" else '' }}>
+                  <label class="form-check-label" for="do_not_disturb_on{{ idx }}">방해 금지 사용</label>
+                </div>
+                <div class="form-group">
+                  <label for="interval_seconds{{ idx }}">갱신 간격 (초)</label>
+                  <input type="number" class="modal-form-control" id="interval_seconds{{ idx }}" value="{{ indiv_config.interval_seconds }}">
+                </div>
+                <div class="form-group">
+                  <label for="mode{{ idx }}">모드</label>
+                  <select class="modal-form-control" id="mode{{ idx }}">
+                    <option value="default" {{ 'selected' if mode == 'default' else '' }}>기본</option>
+                    <option value="off" {{ 'selected' if mode == 'off' else '' }}>비활성화</option>
+                    <option value="blacklist" {{ 'selected' if mode == 'blacklist' else '' }}>블랙리스트</option>
+                    <option value="advanced" {{ 'selected' if mode == 'advanced' else '' }}>고급</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="blacklist{{ idx }}">블랙리스트</label>
+                  <input type="text" class="modal-form-control" id="blacklist{{ idx }}" value="{% if blacklist %}{{ blacklist | join(', ') }}{% endif %}" disabled placeholder="개별 카테고리 목록 기능은 추후 추가할 예정입니다.">
+                </div>
+                <div class="form-group">
+                  <label for="whitelist{{ idx }}">화이트리스트</label>
+                  <input type="text" class="modal-form-control" id="whitelist{{ idx }}" value="{% if whitelist %}{{ whitelist | join(', ') }}{% endif %}" disabled placeholder="개별 카테고리 목록 기능은 추후 추가할 예정입니다.">
+                </div>
+                <div class="form-group">
+                  <label for="exclude_keywords{{ idx }}">제외 키워드</label>
+                  <input type="text" class="modal-form-control" id="exclude_keywords{{ idx }}" value="{% if exclude_keywords %}{{ exclude_keywords | join(', ') }}{% endif %}" disabled placeholder="개별 카테고리 목록 기능은 추후 추가할 예정입니다.">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+              <button class="btn btn-primary" onclick="saveConfig({{ idx }})">저장</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Add new individual configuration -->
+      <button
+        class="btn btn-success mb-4"
+        data-toggle="modal"
+        data-target="#addConfigModal"
+      >
+        <i class="fa fa-plus"></i> 추가
+      </button>
+
+    <!-- 페이지 하단 푸터 -->
+    <footer class="footer">
+      <span>
+        깃허브:
+        <a href="https://github.com/1-vL/chzzk-noti-bot" target="_blank"
+          ><i class="fab fa-github"></i> 1-vL</a
+        >
+        <span> </span>
+        도커허브:
+        <a href="https://hub.docker.com/r/onevl/chzzk-noti-bot" target="_blank"
+          ><i class="fab fa-docker"></i> onevl</a
+        >
+      </span>
+    </footer>
+
+    <!-- 부트스트랩 및 필요한 JavaScript 추가 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function editConfig(idx) {
+        console.log("editConfig", idx);
+        $("#collapseIndivConfig" + idx).collapse("toggle");
+        // editConfigModal 토글
+        $("#editConfigModal" + idx).modal("toggle");
+      }
+
+      function addConfig() {
+        console.log("addConfig");
+        // AJAX 요청을 통해 데이터를 서버에 전송하고, 수정된 설정을 저장
+        
+        // Prepare JSON data from the form
+        let jsonData = {
+          title: $('#new_title').val(),
+          desc: $('#new_desc').val(),
+          api_url: $('#new_api_url').val(),
+          discord_webhook_url: $('#new_discord_webhook_url').val(),
+          custom_user_agent: $('#new_custom_user_agent').val(),
+          do_not_disturb_start: $('#new_do_not_disturb_start').val(),
+          do_not_disturb_end: $('#new_do_not_disturb_end').val(),
+          do_not_disturb_on: $('#new_do_not_disturb_on').prop('checked') ? 'True' : 'False',
+          interval_seconds: parseInt($('#new_interval_seconds').val()),
+          mode: $('#new_mode').val(),
+          blacklist: $('#new_blacklist').val().split(',').map(item => item.trim()),
+          whitelist: $('#new_whitelist').val().split(',').map(item => item.trim()),
+          exclude_keywords: $('#new_exclude_keywords').val().split(',').map(item => item.trim())
+        };
+    
+        $.ajax({
+          type: "POST",
+          url: "/add_individual_config",
+          contentType: "application/json",
+          data: JSON.stringify(jsonData),
+          success: function(response) {
+            alert("저장되었습니다.");
+            $("#collapseIndivConfig").collapse("toggle");
+            $("#addConfigModal").modal("hide");// Close the modal
+            // Perform additional UI updates if needed
+            location.reload();
+          },
+          error: function(error) {
+            alert("저장에 실패했습니다. 다시 시도해주세요.");
+            console.error("Error saving add_individual_config config:", error);
+          }
+        });
+      }
+
+      function saveConfig(idx) {
+        console.log("saveConfig", idx);
+        
+        // Prepare JSON data from the form
+        let jsonData = {
+          title: $('#title' + idx).val(),
+          desc: $('#desc' + idx).val(),
+          api_url: $('#api_url' + idx).val(),
+          discord_webhook_url: $('#discord_webhook_url' + idx).val(),
+          custom_user_agent: $('#custom_user_agent' + idx).val(),
+          do_not_disturb_start: $('#do_not_disturb_start' + idx).val(),
+          do_not_disturb_end: $('#do_not_disturb_end' + idx).val(),
+          do_not_disturb_on: $('#do_not_disturb_on' + idx).prop('checked') ? 'True' : 'False',
+          interval_seconds: parseInt($('#interval_seconds' + idx).val()),
+          mode: $('#mode' + idx).val(),
+          blacklist: $('#blacklist' + idx).val().split(',').map(item => item.trim()),
+          whitelist: $('#whitelist' + idx).val().split(',').map(item => item.trim()),
+          exclude_keywords: $('#exclude_keywords' + idx).val().split(',').map(item => item.trim())
+        };
+    
+        $.ajax({
+          type: "POST",
+          url: "/update_individual_config/" + idx,
+          contentType: "application/json",
+          data: JSON.stringify(jsonData),
+          success: function(response) {
+            alert("저장되었습니다.");
+            location.reload();
+            // Perform additional UI updates if needed
+          },
+          error: function(error) {
+            alert("저장에 실패했습니다. 다시 시도해주세요.");
+            console.error("Error saving config:", error);
+          }
+        });
+      }
+
+      function confirmDelete(idx) {
+        if (confirm("정말 삭제하시겠습니까?")) {
+          // 개별 설정 삭제 처리
+          $.ajax({
+            type: "DELETE",
+            url: "/delete_individual_config/" + idx,
+            success: function (response) {
+              // 삭제 성공
+              alert("삭제되었습니다.");
+              // 필요 시 페이지 다시 로드 또는 UI 업데이트 작업 수행
+              location.reload();
+            },
+            error: function (error) {
+              // 오류 처리
+              alert("삭제에 실패했습니다. 다시 시도해주세요.");
+              location.reload();
+            },
+          });
+          // AJAX나 다른 방법으로 서버에 삭제 요청을 보내는 코드 추가 가능
+        }
+      }
+
+      $(document).ready(function () {
+      });
+    </script>
+  </body>
+</html>

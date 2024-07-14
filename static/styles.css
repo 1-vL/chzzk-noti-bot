@@ -1,0 +1,310 @@
+/* 전체 페이지 스타일 */
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  padding: 20px;
+  background-color: var(--color-bg-01, #141517); /* 페이지 배경색 설정 */
+  color: var(--color-content-01, #fff); /* 전체 텍스트 색상 */
+}
+
+.container {
+  /* max-width: 800px; */
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.card {
+  background-color: var(--color-bg-02, #212325); /* 카드 배경색 설정 */
+  color: var(--color-content-01); /* 카드 글자색 설정 */
+  margin-bottom: 20px;
+}
+
+.card-header {
+  background-color: var(--color-bg-03, #373a3f); /* 카드 헤더 배경색 설정 */
+  border-bottom: 1px solid var(--color-bg-04, #2e3033); /* 테두리 설정 */
+  align-items: center;
+  padding: 10px 15px;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-body-footer {
+  padding: 5px;
+  font-size: xx-small;
+  text-align: right;
+}
+.card-body-footer span {
+  padding: 5px;
+  border-radius: 5%;
+  border-width: 20em;
+}
+.card-body-footer .status-default {
+  color: #ffffff;
+  background-color: #218838;
+}
+.card-body-footer .status-off {
+  color: #ffffff;
+  background-color: #373a3f;
+}
+.card-body-footer .status-blacklist {
+  color: #ffffff;
+  background-color: #2e3033;
+}
+.card-body-footer .status-advanced {
+  color: #ffffff;
+  background-color: #0056b3;
+}
+.card-link-box {
+  flex-direction: row;
+}
+.card-link-box .card-link {
+  text-align: left;
+  text-overflow: ellipsis;
+  margin: 5px;
+}
+.card-link-box .card-link a {
+  font-size: 12px;
+}
+
+.btn {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--color-bg-chzzk-01, #00ffa3); /* 강조색 설정 */
+  border: none;
+  color: var(--color-bg-01, #141517); /* 버튼 텍스트 색상 */
+  /* color: #ffffff; */
+}
+
+.btn-primary:hover {
+  background-color: var(
+    --color-bg-chzzk-02,
+    rgba(0, 255, 163, 0.9)
+  ); /* 강조색 - 호버 상태 */
+}
+
+.btn-outline-primary {
+  background-color: transparent;
+  border: 1px solid var(--color-bg-chzzk-01, #00ffa3);
+  color: var(--color-bg-chzzk-01);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--color-bg-chzzk-01); /* 테두리 버튼 호버 상태 */
+}
+
+.btn-link {
+  color: #00ffa3;
+}
+
+.btn-link:hover {
+  text-decoration: none;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  color: #ffffff;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+  color: #ffffff;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+h1 {
+  color: var(--color-bg-chzzk-01); /* 강조색 설정 */
+}
+
+.btn-success {
+  background-color: #00ffa3; /* 성공 버튼 배경색 */
+  border: none;
+  color: var(--color-bg-01, #141517);
+}
+
+.btn-success:hover {
+  background-color: var(
+    --color-bg-chzzk-02,
+    rgba(0, 255, 163, 0.9)
+  ); /* 성공 버튼 호버 상태 */
+}
+
+.btn-danger {
+  background-color: var(--color-bg-05, #4d4d4d); /* 위험 버튼 배경색 */
+  border: none;
+  color: var(--color-content-01);
+}
+
+.btn-danger:hover {
+  background-color: var(--color-bg-04, #2e3033); /* 위험 버튼 호버 상태 */
+}
+
+.btn-outline-danger {
+  color: rgba(255, 0, 163, 0.75);
+  background-color: transparent;
+  border: 1px solid var(--color-bg-05, #4d4d4d);
+}
+
+.btn-outline-danger:hover {
+  background-color: var(--color-bg-05); /* 테두리 버튼 호버 상태 */
+  color: rgba(255, 0, 163, 0.5);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control:disabled {
+  background-color: rgba(0, 255, 163, 0.5);
+  color: #fff;
+}
+
+/* 입력 필드 스타일 */
+.form-control {
+  padding: 8px;
+  width: calc(100vw - 160px);
+  align-self: center;
+  align-items: center;
+  align-content: center;
+  /* box-sizing: border-box; */
+  background-color: rgba(223, 226, 234, 0.1); /* 반투명한 배경 색 */
+  border: 1px solid #4d4d4d; /* 비활성화 상태의 테두리 색상 */
+  color: #c9cedc; /* 에그쉘 색 글씨 */
+  margin-bottom: 10px; /* 넉넉한 마진 설정 */
+}
+
+.form-control:focus {
+  border-color: #00ffa3; /* 활성화 상태의 테두리 색상 */
+}
+/* 입력 필드 스타일 */
+.form-control-time {
+  padding: 8px;
+  align-self: center;
+  align-items: center;
+  align-content: center;
+  /* box-sizing: border-box; */
+  background-color: rgba(223, 226, 234, 0.1); /* 반투명한 배경 색 */
+  border: 1px solid #4d4d4d; /* 비활성화 상태의 테두리 색상 */
+  color: #c9cedc; /* 에그쉘 색 글씨 */
+  margin-bottom: 10px; /* 넉넉한 마진 설정 */
+}
+
+.form-control-time:focus {
+  border-color: #00ffa3; /* 활성화 상태의 테두리 색상 */
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #1f2124;
+  padding: 0px 10px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.footer a {
+  color: #00ffa3;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* 뒤로가기 아이콘 스타일 */
+.back-button {
+  color: #00ffa3;
+  text-decoration: none;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
+
+/* 드롭다운 메뉴와 버튼 간격 조정 */
+.dropdown-menu {
+  padding: 10px;
+  background-color: #1f2124;
+  border: 1px solid #343a40;
+}
+
+.dropdown-menu .dropdown-item {
+  color: #ffffff;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #343a40;
+}
+
+.dropdown-menu .form-control {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #4d4d4d;
+}
+
+.modal-content {
+  padding: 10px;
+  background-color: #1f2124;
+  border: 1px solid #343a40;
+}
+
+.modal-form-control:disabled {
+  background-color: #4d4d4d;
+  color: rgba(223, 226, 234, 0.1);
+}
+
+/* 입력 필드 스타일 */
+.modal-form-control {
+  padding: 8px;
+  width: calc(50vw - 160px);
+  align-self: center;
+  align-items: center;
+  align-content: center;
+  /* box-sizing: border-box; */
+  background-color: rgba(223, 226, 234, 0.1); /* 반투명한 배경 색 */
+  border: 1px solid #4d4d4d; /* 비활성화 상태의 테두리 색상 */
+  color: #c9cedc; /* 에그쉘 색 글씨 */
+  margin-bottom: 10px; /* 넉넉한 마진 설정 */
+}
+
+.modal-form-control:focus {
+  border-color: #00ffa3; /* 활성화 상태의 테두리 색상 */
+}
+/* 입력 필드 스타일 */
+.modal-form-control-time {
+  padding: 8px;
+  align-self: center;
+  align-items: center;
+  align-content: center;
+  /* box-sizing: border-box; */
+  background-color: rgba(223, 226, 234, 0.1); /* 반투명한 배경 색 */
+  border: 1px solid #4d4d4d; /* 비활성화 상태의 테두리 색상 */
+  color: #c9cedc; /* 에그쉘 색 글씨 */
+  margin-bottom: 10px; /* 넉넉한 마진 설정 */
+}
+
+.modal-form-control-time:focus {
+  border-color: #00ffa3; /* 활성화 상태의 테두리 색상 */
+}
+
+.modal-title {
+  color: #00ffa3;
+  margin: 10px 10px;
+}

@@ -30,14 +30,33 @@ PATCH=$((PATCH + 1))
 VERSION="$MAJOR.$MINOR.$PATCH"
 echo "$VERSION" > "$VERSION_FILE"
 
+
+echo "도커 Buildx 세팅..."
+# Buildx 설정 및 QEMU 설치
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+docker buildx create --use --name mybuilder
+
 # 도커 이미지 빌드
-echo "도커 $VERSION 이미지 빌드 중..."
-docker build -t $DOCKER_HUB_USERNAME/$IMAGE_NAME:$VERSION .
+echo "도커 $VERSION 멀티 아키텍처 이미지 빌드 중... amd64,arm64,ppc64le,s390x,386,arm/v7"
+docker buildx build --platform linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7 -t $DOCKER_HUB_USERNAME/$IMAGE_NAME:$VERSION --push .
 
 # 도커 이미지 푸시
 echo "도커 $VERSION 이미지 푸시 중..."
-docker tag $DOCKER_HUB_USERNAME/$IMAGE_NAME:$VERSION $DOCKER_HUB_USERNAME/$IMAGE_NAME:latest
-docker push $DOCKER_HUB_USERNAME/$IMAGE_NAME:$VERSION
+docker buildx imagetools create -t $DOCKER_HUB_USERNAME/$IMAGE_NAME:latest $DOCKER_HUB_USERNAME/$IMAGE_NAME:$VERSION
 docker push $DOCKER_HUB_USERNAME/$IMAGE_NAME:latest
 
 echo "도커 $VERSION 이미지 빌드 및 푸시 완료!"
+# echo "도커 $VERSION 이미지 빌드 중..."
+# docker build -t $DOCKER_HUB_USERNAME/$IMAGE_NAME:$VERSION .
+
+# # 도커 이미지 푸시
+# echo "도커 $VERSION 이미지 푸시 중..."
+# docker tag $DOCKER_HUB_USERNAME/$IMAGE_NAME:$VERSION $DOCKER_HUB_USERNAME/$IMAGE_NAME:latest
+# docker push $DOCKER_HUB_USERNAME/$IMAGE_NAME:$VERSION
+# docker push $DOCKER_HUB_USERNAME/$IMAGE_NAME:latest
+
+# echo "도커 $VERSION 이미지 빌드 및 푸시 완료!"
+
+echo "도커 Buildx 클린업..."
+# Buildx 클린업
+docker buildx rm mybuilder
