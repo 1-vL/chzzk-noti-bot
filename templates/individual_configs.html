@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -63,23 +63,23 @@
               </div>
               <div class="form-group">
                 <label for="new_api_url">API URL</label>
-                <input type="url" class="modal-form-control" id="new_api_url" value="">
+                <input type="url" class="modal-form-control" id="new_api_url" placeholder="https://api.chzzk.naver.com/service/v2/categories/카테고리 대분류 태그 - (ex: GAME)/게임 태그 - (ex: Tabletop_Simulator)/lives" value="https://api.chzzk.naver.com/service/v2/categories/카테고리 대분류 태그 - (ex: GAME)/게임 태그 - (ex: Tabletop_Simulator)/lives">
               </div>
               <div class="form-group">
                 <label for="new_discord_webhook_url">Discord Webhook URL</label>
-                <input type="url" class="modal-form-control" id="new_discord_webhook_url" value="">
+                <input type="url" class="modal-form-control" id="new_discord_webhook_url" placeholder="{{ default_config.discord_webhook_url }}" value="{{ default_config.discord_webhook_url }}">
               </div>
               <div class="form-group">
                 <label for="new_custom_user_agent">사용자 정의 User Agent</label>
-                <input type="text" class="modal-form-control" id="new_custom_user_agent" value="">
+                <input type="text" class="modal-form-control" id="new_custom_user_agent" placeholder="{{ default_config.custom_user_agent }}" value="{{ default_config.custom_user_agent }}">
               </div>
               <div class="form-group">
                 <label for="new_do_not_disturb_start">방해 금지 시작 시간</label>
-                <input type="time" class="modal-form-control" id="new_do_not_disturb_start" value="03:00">
+                <input type="time" class="modal-form-control" id="new_do_not_disturb_start" value="{{ default_config.do_not_disturb_start }}">
               </div>
               <div class="form-group">
                 <label for="new_do_not_disturb_end">방해 금지 종료 시간</label>
-                <input type="time" class="modal-form-control" id="new_do_not_disturb_end" value="08:45">
+                <input type="time" class="modal-form-control" id="new_do_not_disturb_end" value="{{ default_config.do_not_disturb_end }}">
               </div>
               <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="new_do_not_disturb_on" checked>
@@ -87,7 +87,7 @@
               </div>
               <div class="form-group">
                 <label for="new_interval_seconds">갱신 간격 (초)</label>
-                <input type="number" class="modal-form-control" id="new_interval_seconds" value="60">
+                <input type="number" class="modal-form-control" id="new_interval_seconds" value="{{ default_config.interval_seconds }}">
               </div>
               <div class="form-group">
                 <label for="new_mode">모드</label>
@@ -194,23 +194,23 @@
                 </div>
                 <div class="form-group">
                   <label for="api_url{{ idx }}">API URL</label>
-                  <input type="url" class="modal-form-control" id="api_url{{ idx }}" value="{{ indiv_config.api_url }}">
+                  <input type="url" class="modal-form-control" id="api_url{{ idx }}" placeholder="{{ indiv_config.api_url if indiv_config.api_url else default_config.api_url }}" value="{{ indiv_config.api_url if indiv_config.api_url else default_config.api_url }}">
                 </div>
                 <div class="form-group">
                   <label for="discord_webhook_url{{ idx }}">Discord Webhook URL</label>
-                  <input type="url" class="modal-form-control" id="discord_webhook_url{{ idx }}" value="{{ indiv_config.discord_webhook_url }}">
+                  <input type="url" class="modal-form-control" id="discord_webhook_url{{ idx }}" placeholder="{{ indiv_config.discord_webhook_url if indiv_config.discord_webhook_url else default_config.discord_webhook_url }}" value="{{ indiv_config.discord_webhook_url if indiv_config.discord_webhook_url else default_config.discord_webhook_url }}">
                 </div>
                 <div class="form-group">
                   <label for="custom_user_agent{{ idx }}">사용자 정의 User Agent</label>
-                  <input type="text" class="modal-form-control" id="custom_user_agent{{ idx }}" value="{{ indiv_config.custom_user_agent }}">
+                  <input type="text" class="modal-form-control" id="custom_user_agent{{ idx }}" value="{{ indiv_config.custom_user_agent if indiv_config.custom_user_agent else default_config.custom_user_agent }}">
                 </div>
                 <div class="form-group">
                   <label for="do_not_disturb_start{{ idx }}">방해 금지 시작 시간</label>
-                  <input type="time" class="modal-form-control" id="do_not_disturb_start{{ idx }}" value="{{ indiv_config.do_not_disturb_start }}">
+                  <input type="time" class="modal-form-control" id="do_not_disturb_start{{ idx }}" value="{{ indiv_config.do_not_disturb_start if indiv_config.do_not_disturb_start else default_config.do_not_disturb_start }}">
                 </div>
                 <div class="form-group">
                   <label for="do_not_disturb_end{{ idx }}">방해 금지 종료 시간</label>
-                  <input type="time" class="modal-form-control" id="do_not_disturb_end{{ idx }}" value="{{ indiv_config.do_not_disturb_end }}">
+                  <input type="time" class="modal-form-control" id="do_not_disturb_end{{ idx }}" value="{{ indiv_config.do_not_disturb_end if indiv_config.do_not_disturb_end else default_config.do_not_disturb_end }}">
                 </div>
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" id="do_not_disturb_on{{ idx }}" {{ 'checked' if indiv_config.do_not_disturb_on == "True" else '' }}>
@@ -218,7 +218,7 @@
                 </div>
                 <div class="form-group">
                   <label for="interval_seconds{{ idx }}">갱신 간격 (초)</label>
-                  <input type="number" class="modal-form-control" id="interval_seconds{{ idx }}" value="{{ indiv_config.interval_seconds }}">
+                  <input type="number" class="modal-form-control" id="interval_seconds{{ idx }}" value="{{ indiv_config.interval_seconds if indiv_config.interval_seconds else default_config.interval_seconds }}">
                 </div>
                 <div class="form-group">
                   <label for="mode{{ idx }}">모드</label>

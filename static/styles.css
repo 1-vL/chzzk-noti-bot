@@ -273,7 +273,7 @@ h1 {
 /* 입력 필드 스타일 */
 .modal-form-control {
   padding: 8px;
-  width: calc(50vw - 160px);
+  width: 100%;
   align-self: center;
   align-items: center;
   align-content: center;

@@ -1,0 +1,10 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.git
+*.gitignore
+data/config-backup.json
+docker-build.sh
+LICENSE
+version.txt
