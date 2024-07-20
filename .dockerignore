@@ -4,7 +4,14 @@ __pycache__
 *.pyd
 .git
 *.gitignore
+
+# 개발 관련
 data/config-backup.json
 docker-build.sh
+docker-build-dev.sh
 LICENSE
 version.txt
+.env
+.dockerignore
+.vscode
+Dockerfile

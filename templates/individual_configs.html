@@ -63,7 +63,7 @@
               </div>
               <div class="form-group">
                 <label for="new_api_url">API URL</label>
-                <input type="url" class="modal-form-control" id="new_api_url" placeholder="https://api.chzzk.naver.com/service/v2/categories/카테고리 대분류 태그 - (ex: GAME)/게임 태그 - (ex: Tabletop_Simulator)/lives" value="https://api.chzzk.naver.com/service/v2/categories/카테고리 대분류 태그 - (ex: GAME)/게임 태그 - (ex: Tabletop_Simulator)/lives">
+                <input type="url" class="modal-form-control" id="new_api_url" placeholder="https://api.chzzk.naver.com/service/v2/categories/카테고리 타입 - (ex: GAME)/카테고리 - (ex: Tabletop_Simulator)/lives" value="https://api.chzzk.naver.com/service/v2/categories/카테고리 타입 - (ex: GAME)/카테고리 - (ex: Tabletop_Simulator)/lives">
               </div>
               <div class="form-group">
                 <label for="new_discord_webhook_url">Discord Webhook URL</label>
@@ -92,7 +92,7 @@
               <div class="form-group">
                 <label for="new_mode">모드</label>
                 <select class="modal-form-control" id="new_mode">
-                  <option value="default" selected>기본</option>
+                  <option value="default" {{ 'selected' if mode == 'default' else '' }}>기본</option>
                   <option value="off" {{ 'selected' if mode == 'off' else '' }}>비활성화</option>
                   <option value="blacklist" {{ 'selected' if mode == 'blacklist' else '' }}>블랙리스트</option>
                   <option value="advanced" {{ 'selected' if mode == 'advanced' else '' }}>고급</option>

@@ -1,21 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import json
-import requests
 import logging
-from discord_webhook import DiscordWebhook, DiscordEmbed
-import time
-import os
-from functools import lru_cache
-from datetime import datetime, timedelta
-from cachetools import TTLCache
-import threading
 
 app = Flask(__name__)
 
 # 설정 파일 경로
 CONFIG_FILE = 'data/config.json'
-# TTL을 설정할 수 있는 캐시 객체 생성
-cache = TTLCache(maxsize=200, ttl=86400)  # 최대 200개의 방송기록을 24시간 동안 유지
 
 # 로깅 설정
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
