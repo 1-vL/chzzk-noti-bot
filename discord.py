@@ -229,7 +229,7 @@ def bot_thread_clear():
     
     # 이전에 체크 중이던 스레드를 전부 종료
     for prev_thread in threads:
-        logging.info("이전 thread 중단중..." + prev_thread)
+        logging.info("이전 thread 중단중...")
         prev_thread.stop()
         prev_thread.join()
     
