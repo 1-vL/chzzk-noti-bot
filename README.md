@@ -1,7 +1,7 @@
 # 치지직 카테고리 알림 봇 chzzk-noti-bot
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot)
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2F1-vL%2Fchzzk-noti-bot%2Fhit-counter&count_bg=%2344cc11&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://github.com/1-vL/chzzk-noti-bot)
+![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=1-vL.chzzk-noti-bot)
 [![GitHub issues](https://img.shields.io/github/issues/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/issues)
 [![GitHub stars](https://img.shields.io/github/stars/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/network)
@@ -135,7 +135,7 @@ API URL 칸에는 치지직 공식 사이트에서 확인한 카테고리 정보
 # chzzk-noti-bot
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot)
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2F1-vL%2Fchzzk-noti-bot%2Fhit-counter&count_bg=%2344cc11&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://github.com/1-vL/chzzk-noti-bot)
+![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=1-vL.chzzk-noti-bot)
 [![GitHub issues](https://img.shields.io/github/issues/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/issues)
 [![GitHub stars](https://img.shields.io/github/stars/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/1-vL/chzzk-noti-bot)](https://github.com/1-vL/chzzk-noti-bot/network)
