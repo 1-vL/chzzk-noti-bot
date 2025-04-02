@@ -9,6 +9,8 @@
 [![DockerHub](https://img.shields.io/docker/pulls/onevl/chzzk-noti-bot)](https://hub.docker.com/r/onevl/chzzk-noti-bot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M510DV50)
+
 이 봇은 지정한 치지직 방송 카테고리에서 방송이 시작되면 해당 방송의 정보를 디스코드 알림으로 알리는 봇입니다.
 
 도커를 통해 설치하여 사용하시면 됩니다.
@@ -142,6 +144,8 @@ API URL 칸에는 치지직 공식 사이트에서 확인한 카테고리 정보
 [![Docker Hub Version](https://img.shields.io/docker/v/onevl/chzzk-noti-bot?label=docker%20hub%20version)](https://hub.docker.com/r/onevl/chzzk-noti-bot)
 [![DockerHub](https://img.shields.io/docker/pulls/onevl/chzzk-noti-bot)](https://hub.docker.com/r/onevl/chzzk-noti-bot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M510DV50)
 
 This bot provides notifications based on 치지직 (Chzzk) broadcast categories via Discord webhooks.
 
